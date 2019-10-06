@@ -1,18 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
-import {promiseMiddleware} from './middleware';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import {promiseMiddleware, localStorageMiddleware} from './middleware';
+import auth from './reducers/auth';
+import common from './reducers/common';
+import home from './reducers/home';
 
-const defaultState = {appName: 'CONDUIT', articles: null};
-const reducer = function(state = defaultState, action) {
-  switch (action.type) {
-    case 'TOGGLE':
-      return {...state, checked: !state.checked};
+const reducer = combineReducers({
+  auth,
+  common,
+  home,
+})
 
-    case 'HOME_PAGE_LOADED':
-      return {...state, articles: action.payload.articles}
-    default: return state;
-  }
-}
-
-const store = createStore(reducer, applyMiddleware(promiseMiddleware));
+const store = createStore(reducer, applyMiddleware(promiseMiddleware, localStorageMiddleware));
 
 export default store;

@@ -5,7 +5,7 @@ import Banner from './Banner';
 import agent from '../../agent';
 
 const mapStateToProps = state => ({
-  appName: state.appName
+  appName: state.common.appName
 });
 
 const mapDispatchToProps = dispatch => ({
