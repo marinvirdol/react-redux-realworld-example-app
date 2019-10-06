@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './components/Header';
-import Home from './components/Home';
 
 const mapStateToProps = state => ({
   appName: state.appName
@@ -13,10 +12,14 @@ class App extends React.Component {
     return (
       <div>
         <Header appName={this.props.appName} />
-        <Home/>
+        {this.props.children}
       </div>
     );
   }
 }
+
+App.contextType = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default connect(mapStateToProps, () => ({}))(App);
